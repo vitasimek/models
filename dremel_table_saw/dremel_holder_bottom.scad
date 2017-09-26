@@ -2,7 +2,7 @@ include<dremel_body.scad>
 
 difference()
 {
-    body_bottom_part();
+    //body_bottom_part();
     
 //    translate([0,0,0])
 //    cube([55,100,100]);

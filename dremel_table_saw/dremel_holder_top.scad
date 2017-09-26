@@ -1,14 +1,14 @@
 include<dremel_body.scad>
 
-difference()
-{
-    body_top_part();
-
-//    translate([0,0,0])
-//    cube([55,100,100]);
-//    translate([0,0,0])
-//    cube([120,60,100]);
-}
+//difference()
+//{
+//    body_top_part();
+//
+////    translate([0,0,0])
+////    cube([55,100,100]);
+////    translate([0,0,0])
+////    cube([120,60,100]);
+//}
 
 module body_top_part()
 {
