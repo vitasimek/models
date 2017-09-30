@@ -1,5 +1,6 @@
 include<dremel_holder_top.scad>
 include<dremel_holder_bottom.scad>
+include<dremel_table_hole_adapters.scad>
 
 table_width = 200;
 table_height = 10;
@@ -7,6 +8,9 @@ table_leg_height = body_width;
 table_leg_width = 30;
 wall = 3;
 hole_diameter = 10;
+saw_hole_width = 10;
+saw_hole_length = 40;
+saw_hole_body_shift = 37;
     
 table();
 translate([0, table_width /2-body_width/2, 0])
@@ -17,7 +21,12 @@ translate([0, table_width /2+body_width/2, body_width + 1])
 rotate([180,0,0])
 body_bottom_part();
     
+saw_hole(saw_hole_width, saw_hole_length, saw_hole_body_shift);
 
+// test
+clearance = 0.2;
+translate([0,0,-15])
+saw_hole_full(saw_hole_width-clearance, saw_hole_length-clearance, saw_hole_body_shift+clearance/2);
 
 module table()
 {
@@ -35,7 +44,7 @@ module table()
 
         translate([0, table_width /2-body_width/2, 0])
         cube([body_length, body_width, table_height]);
-        saw_hole();
+        saw_hole_full(saw_hole_width, saw_hole_length, saw_hole_body_shift);
         holes_rows(hole_diameter);
     }
 }
@@ -64,14 +73,16 @@ module table_legs_neg()
     cube([table_leg_width, table_leg_width, table_leg_height]);
 }
 
-module saw_hole()
+module saw_hole(saw_hole_width, saw_hole_length, saw_hole_body_shift)
 {
-    saw_hole_width = 8;
-    saw_hole_length = 40;
-    saw_hole_body_shift = 37;
+    translate([body_length + saw_hole_body_shift-2*wall, table_width /2-saw_hole_length/2-2*wall, 0])
+    hole_adapter(saw_hole_width+2*wall, saw_hole_length+2*wall, wall);
+}
 
-    translate([body_length + saw_hole_body_shift, table_width /2-saw_hole_length/2, 0])
-    cube([saw_hole_width, saw_hole_length, wall]);
+module saw_hole_full(saw_hole_width, saw_hole_length, saw_hole_body_shift)
+{
+    translate([body_length + saw_hole_body_shift-wall, table_width /2-saw_hole_length/2- wall, 0])
+    hole_adapter_case(saw_hole_width, saw_hole_length, wall);
 }
 
 module holes_rows(hole_diameter)

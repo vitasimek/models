@@ -9,9 +9,6 @@ adapter_width = 20;
 adapter_length = 40;
 
 
-hole_adapter(adapter_width, adapter_length, wall);
-translate ([40, 0, 0])
-hole_adapter(adapter_width-2*wall, adapter_length-2*wall, wall);
 
 module hole_adapter(adapter_width, adapter_length, wall)
 {
