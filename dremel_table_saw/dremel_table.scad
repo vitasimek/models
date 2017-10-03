@@ -4,7 +4,7 @@ include<dremel_table_hole_adapters.scad>
 
 table_width = 200;
 table_height = 10;
-table_leg_height = body_width;
+table_leg_height = 45;
 table_leg_width = 30;
 wall = 3;
 hole_diameter = 10;
@@ -18,6 +18,7 @@ body_top_part();
 
 
 translate([0, table_width /2+body_width/2, body_width + 1])
+//translate([0, table_width+2, 0])
 rotate([180,0,0])
 body_bottom_part();
     
@@ -26,7 +27,7 @@ saw_hole(saw_hole_width, saw_hole_length, saw_hole_body_shift);
 // test
 clearance = 0.2;
 
-translate([0,0,0])
+//translate([62,0,0])
 saw_hole_full(saw_hole_width-clearance, saw_hole_length-clearance, saw_hole_body_shift+clearance/2);
 
 module table()
