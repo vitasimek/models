@@ -9,8 +9,8 @@ table_leg_width = 30;
 wall = 3;
 hole_diameter = 10;
 saw_hole_width = 10;
-saw_hole_length = 40;
-saw_hole_body_shift = 37;
+saw_hole_length = 45;
+saw_hole_body_shift = -saw_hole_width/2+39;
     
 table();
 translate([0, table_width /2-body_width/2, 0])
