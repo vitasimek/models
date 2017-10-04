@@ -16,6 +16,7 @@ difference()
 {
     whole_table();
 
+// TODO: Remove this after test print !!
     difference()
     {
         cube([300, 300, 50]);
