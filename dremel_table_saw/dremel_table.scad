@@ -70,6 +70,23 @@ module table()
         cube([body_length, body_width, table_height]);
         saw_hole_full(saw_hole_width, saw_hole_length, saw_hole_body_shift,0);
         holes_rows(hole_diameter);
+        tiny_screew_holes();
+    }
+}
+
+module tiny_screew_holes()
+{
+    tiny_hole_count = 7;
+    tiny_hole_distance = 25;    
+
+    tiny_hole_shift = 25;
+    echo(tiny_hole_shift);
+    
+    for(i = [0 : tiny_hole_count - 1])
+    for(j = [0 : tiny_hole_count - 1])
+    {
+        translate([tiny_hole_shift+tiny_hole_distance*i,tiny_hole_shift+tiny_hole_distance*j,0])
+        cylinder(d=1.9,h=wall, $fn=21);
     }
 }
 
