@@ -3,8 +3,17 @@ use <parametric_NACA4_library.scad>;
 
 length = 20;
 
-
+fuselage_diameter=50+20;
 tail_rod_length = 500;
+
+
+servo_width = 11.84;
+    translate([-servo_width*0,40,-22])
+    rotate([0,0,-90])
+    import("simple_sg90.stl");
+    translate([-servo_width*1,40,-22])
+    rotate([0,0,-90])
+    import("simple_sg90.stl");
 
 
 module wing_section(length, basewidth = 150)
@@ -12,17 +21,17 @@ module wing_section(length, basewidth = 150)
     straight_wing(length, basewidth);
 }
 
-difference()
+#difference()
 {
     union()
     {
-        fuselage(length = 150, diameter=50);
+        fuselage(length = 150, diameter=fuselage_diameter);
         tail(tail_rod_length, fuselage_length = 150);
         wing_left();
         wing_right();
     }
 
-    fuselage_neg(length = 150, diameter=50);
+    fuselage_neg(length = 150, diameter=fuselage_diameter);
     tail_neg(tal_rod_length = tail_rod_length, fuselage_length = 150);
 }
     
@@ -103,7 +112,6 @@ module tail(tail_rod_length = 500, fuselage_length)
 module tail_neg(tail_rod_length = 500, fuselage_length)
 {
     diameter = 4;
-    echo(basewidth);
     translate([110, fuselage_length/2,0])
     translate([0, tail_rod_length, 00])
     rotate([0,-90,0])
