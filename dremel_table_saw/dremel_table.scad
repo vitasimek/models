@@ -17,19 +17,19 @@ difference()
     whole_table();
 
 // TODO: Remove this after test print !!
-    difference()
-    {
-        cube([300, 300, 50]);
-        translate([85, 60, 0])
-        cube([85, 80, 50]);
-    }
+//    difference()
+//    {
+//        cube([300, 300, 50]);
+//        translate([85, 60, 0])
+//        cube([85, 80, 50]);
+//    }
 }
 
     clearance = 0.2;
 
 // TODO: Remove this after test print !!
-    translate([-80,0,0])
-    saw_hole_full(saw_hole_width-clearance, saw_hole_length-clearance, saw_hole_body_shift+clearance/2);
+//    translate([-80,0,0])
+//    saw_hole_full(saw_hole_width-clearance, saw_hole_length-clearance, saw_hole_body_shift+clearance/2);
 
 
 module whole_table()
@@ -69,8 +69,8 @@ module table()
         translate([0, table_width /2-body_width/2, 0])
         cube([body_length, body_width, table_height]);
         saw_hole_full(saw_hole_width, saw_hole_length, saw_hole_body_shift,0);
-        holes_rows(hole_diameter);
-        tiny_screew_holes();
+//        holes_rows(hole_diameter);
+//        tiny_screew_holes();
     }
 }
 
