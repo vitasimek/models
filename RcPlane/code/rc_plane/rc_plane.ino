@@ -6,15 +6,18 @@
 #include <printf.h>
 #include <RF24.h>
 
+#define MOTORS_LEFT 5
 
 byte uplinkAddress[6] = "ULINK";
 byte downlinkAddress[6] = "DLINK";
 
 
-RF24 radio(7, 8); // (CE, CS)
+RF24 radio(8, 10); // (CE, CS)
 
 
-Servo myservo;
+Servo pitch;
+Servo yaw;
+
 
 void setup() {
 
@@ -31,7 +34,7 @@ void setup() {
         Serial.println("Chip disconnected.");
     }
 
-    radio.setPALevel(RF24_PA_LOW);
+    radio.setPALevel(RF24_PA_MAX);
     radio.openReadingPipe(1, uplinkAddress);
     radio.openWritingPipe(downlinkAddress);
 
@@ -39,7 +42,9 @@ void setup() {
 
     radio.startListening();
 
-    myservo.attach(12);    
+    pitch.attach(9);
+    yaw.attach(6);
+    pinMode(MOTORS_LEFT, OUTPUT);
 }
 
 int lastAngle = 0;
@@ -54,15 +59,19 @@ void loop() {
         radio.read( &joystick, sizeof(int));
       }
 
-      int angle = 180*joystick/800;
+      joystick = joystick / 10 * 10;
+      int angle = (long)180*joystick/800;
 
       if (lastAngle != angle)
       {
         lastAngle = angle;
-        myservo.write(angle);
         Serial.print(joystick);
         Serial.print(" -> ");
         Serial.println(angle);
+
+        pitch.write(angle);
+        yaw.write(angle);
+        analogWrite(MOTORS_LEFT, angle / 2);
       }
   }
 }
