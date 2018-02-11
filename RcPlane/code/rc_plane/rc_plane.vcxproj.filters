@@ -17,5 +17,9 @@
   <ItemGroup>
     <None Include="rc_plane.ino" />
   </ItemGroup>
- 
+  <ItemGroup>
+    <ClInclude Include="__vm\.rc_plane.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
