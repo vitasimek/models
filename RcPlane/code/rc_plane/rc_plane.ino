@@ -32,6 +32,9 @@ void setup() {
 	}
 
 	radio.setPALevel(RF24_PA_MAX);
+	radio.setRetries(15, 15);
+	radio.setDataRate(RF24_2MBPS);
+
 	radio.openReadingPipe(1, uplinkAddress);
 	radio.openWritingPipe(downlinkAddress);
 
@@ -50,17 +53,11 @@ void loop() {
 
 	if (radio.available())
 	{
-		telemetry_t telemetry;
-
-		int joystick;
+		telemetry_up_t telemetry;
 
 		while (radio.available()) {
 			radio.read(&telemetry, sizeof(telemetry));
 		}
-
-		telemetry.pitch = telemetry.pitch / 10 * 10;
-		int angle = 180L * telemetry.pitch / 800;
-		pitch.write(angle);
 
 		setServoAngle(telemetry.pitch, &pitch);
 		setServoAngle(telemetry.yaw, &yaw);
@@ -69,10 +66,14 @@ void loop() {
 
 		Serial.print("pitch: ");
 		Serial.print(telemetry.pitch);
-		Serial.print("yaw: ");
+		Serial.print(" yaw: ");
 		Serial.print(telemetry.yaw);
-		Serial.print("motor: ");
+		Serial.print(" roll: ");
+		Serial.print(telemetry.roll);
+		Serial.print(" motor: ");
 		Serial.print(telemetry.motor);
+		Serial.print(" button: ");
+		Serial.print(telemetry.button);
 		Serial.println();
 	}
 }

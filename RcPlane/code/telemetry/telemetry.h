@@ -41,13 +41,22 @@ typedef struct {
 
 typedef struct {
 
+	int motor;
 	int pitch;
 	int yaw;
 	int roll;
-	int motor;
 	button_e button;
+	bool requestLocation;
 
-} telemetry_t;
+} telemetry_up_t;
+
+typedef struct {
+
+	long lat;
+	long lon;
+	long alt;
+
+} telemetry_down_t;
 
 #endif
 

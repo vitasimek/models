@@ -37,6 +37,8 @@ void setup() {
 
 	radio.setPALevel(RF24_PA_MAX);
 	radio.setRetries(15, 15);
+	radio.setDataRate(RF24_2MBPS);
+
 	//    radio.openReadingPipe(1, downlinkAddress);
 	radio.openWritingPipe(uplinkAddress);
 	//radio.startListening();
@@ -51,11 +53,9 @@ void setup() {
 		*/
 }
 
-
-
 void loop() {
 
-	telemetry_t telemetry;
+	telemetry_up_t telemetry;
 
 	telemetry.pitch = analogRead(A6);
 	telemetry.yaw = analogRead(A7);
