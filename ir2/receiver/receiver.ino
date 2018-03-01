@@ -4,7 +4,7 @@
 #define BUTTON_2 4
 #define BUTTON_3 3
 #define LED 13
-
+#define SPEAKER 6
 
 
 void setup() {
@@ -19,9 +19,11 @@ void setup() {
   Serial.begin(115200);  
 }
 
+volatile bool beep = false;
+
 void loop() {
 
-  int value = digitalRead(CONTROL);
+  int value = 0;// digitalRead(CONTROL);
   int button_1 = digitalRead(BUTTON_1);
   int button_2 = digitalRead(BUTTON_2);
   int button_3 = digitalRead(BUTTON_3);
@@ -33,13 +35,29 @@ void loop() {
   Serial.print("\tC: ");
   Serial.print(button_3);
   Serial.print("\tValue: ");
-  Serial.println(value);
+  Serial.print(value);
+  Serial.print("\tbeep: ");
+  Serial.println(beep);
 
-  delay(125);
+  if (beep)
+  {
+    digitalWrite(SPEAKER, HIGH);
+//    tone(SPEAKER, 1000);
+  }
+  else
+  {
+    digitalWrite(SPEAKER, LOW);
+//    noTone(SPEAKER);
+  }
+
+  digitalWrite(LED, beep);
+
+
+  //delay(125);  
 }
 
 void blink()
 {
-  digitalWrite(LED, !digitalRead(LED));
+  beep = digitalRead(CONTROL);
 }
 

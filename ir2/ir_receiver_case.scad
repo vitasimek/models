@@ -2,8 +2,8 @@
 use<ir_receiver_pcb.scad>;
 
 width = 60;
-length = 75;
-height = 50;
+length = 44;
+height = 65;
 
 w=0.4*3;
 h=10-w;
@@ -11,22 +11,42 @@ d=3.5;
 
 // TODO: U KRABIČKY NEZAPOMENOUT NA USB PORT, ABY BYLO MOŽNÉ VYČÍTAT DATA.
 
+translate([-w,-w,0])
 difference()
 {
-    cube([60,44,w]);
-    translate([2,-25/2,0])
-    button_holes();
+    cube([width+2*w,length+2*w,height]);
+    translate([w,w,0])
+    cube([width,length,height]);
+    
+    translate([0,length/2+w,height-20])
+    rotate([0,90,0])
+    #cylinder(d=10,h=w,$fn=6);
+    
+    translate([width+w,length/2+w,height-20])
+    rotate([0,90,0])
+    #cylinder(d=10,h=w,$fn=6);
+}    
 
-    rotate([180,0,0])
-    translate([(60/2-56/2),-42-2,-receiver_pcb_height_total()+1])
-    receiver_pcb();
+bottom_side(width,length,w);
+
+module bottom_side(width,length,w)
+{
+    difference()
+    {
+        cube([width,length,w]);
+        translate([2,-25/2,0])
+        button_holes();
+
+        rotate([180,0,0])
+        translate([(width/2-(width-4)/2),-(length-2)-2,-receiver_pcb_height_total()+1])
+        receiver_pcb();
+    }
+    translate([2,-25/2,w])
+    buttons();
+
+    translate([7+2,6.5,0])
+    spacers();
 }
-
-
-
-
-translate([2,-25/2,w])
-buttons();
 
 module buttons()
 {
@@ -72,9 +92,6 @@ module button_hole()
     }
 }
 
-translate([7+2,6.5,0])
-spacers();
-
 module spacers()
 {    
     translate([0,0,0])
@@ -99,19 +116,6 @@ module spacer()
             cylinder(d=3.5,h=receiver_pcb_height_total(),$fn=21);
         }
         translate([0,0,w])
-        cylinder(d=1.5,h=receiver_pcb_height_total()+pcb_h,$fn=21);
+        cylinder(d=2,h=receiver_pcb_height_total()+pcb_h,$fn=21);
     }
 }
-
-
-
-
-//round_cube(width, length, height);
-
-
-module round_cube(width, length, height, w=0)
-{
-    corner_d=5;
-}
-
-
