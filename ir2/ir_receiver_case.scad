@@ -5,7 +5,7 @@ width = 60;
 length = 44;
 height = 65;
 
-w=0.4*3;
+w=0.4*4;
 h=10-w;
 d=3.5;
 
@@ -18,13 +18,8 @@ difference()
     translate([w,w,0])
     cube([width,length,height]);
     
-    translate([0,length/2+w,height-20])
-    rotate([0,90,0])
-    #cylinder(d=10,h=w,$fn=6);
-    
-    translate([width+w,length/2+w,height-20])
-    rotate([0,90,0])
-    #cylinder(d=10,h=w,$fn=6);
+    translate([0,length/2+w-5,height-10])
+    #cube([w,10,10]);
 }    
 
 bottom_side(width,length,w);
