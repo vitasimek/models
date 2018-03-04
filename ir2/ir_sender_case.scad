@@ -14,6 +14,8 @@ difference()
     cube([width+2*w,length+2*w,height]);
     translate([w,w,0])
     cube([width,length,height]);
+    translate([width/2-5,-w,height-20])
+    #cube([10,w*2,20]);
 }    
 
 bottom_side(width,length,w);
