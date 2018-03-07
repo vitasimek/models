@@ -1,74 +1,69 @@
 #include <IRremote.h>
-#include <IRremoteInt.h>
-#include <boarddefs.h>
-//#include <ir_Lego_PF_BitStreamEncoder.h>
+#include <OneWire.h>
+
 
 #define IR_LED 3
 #define BUTTON A0
 
+
+typedef struct
+{
+  byte serial_no;
+  unsigned int value;
+  byte checksum;
+} data_t;
+
+typedef union
+{
+  data_t data;
+  unsigned long serializable;
+} serializable_data_t;
+
+
 IRsend sender;
 
-void setup() {
-
-  //pinMode(IR_LED, OUTPUT);
+void setup()
+{
   pinMode(13, OUTPUT);
-  //digitalWrite(IR_LED, LOW);
-
-  pinMode(BUTTON, INPUT);
-  digitalWrite(BUTTON,HIGH);
-  
-  //attachInterrupt(digitalPinToInterrupt(BUTTON), on_button_change, CHANGE);
-  pciSetup(BUTTON);
 
   Serial.begin(115200);
 }
 
-volatile int pressed;
+data_t data = { 0xEE, 0x0000 };
 
-void loop() {
+void loop()
+{
+  data.value++;
+  data.checksum = data.serial_no + data.value;
 
-  int frequencyKHz = 38;
-  unsigned int irSignal[] = {9000, 4500, 560,9000, 4500, 560,9000, 4500, 560,9000, 4500, 560, 560 };
-  
-  sender.sendRaw(irSignal, sizeof(irSignal) / sizeof(irSignal[0]), frequencyKHz);
+  serializable_data_t serialized;
+  serialized.data = data;
 
-//  int array[20];
-//  
-//  for(int i = 0; i < 20; i++)
-//  {
-//    array[i] = i % 2;
-//  }
-//
-//  if (pressed)
-//  {
-//    digitalWrite(13, HIGH);
-//    for (int i = 0; i < 7; i++)
-//    {
-//      digitalWrite(IR_LED, array[i]);
-//      digitalWrite(IR_LED, array[i]);
-//      delayMicroseconds(5*2);
-//    }
-//  }
-//
-//
-//  digitalWrite(IR_LED, LOW);
-//  digitalWrite(13, LOW);
+  sendPumpkin(serialized.serializable, 32);
+  Serial.println(serialized.serializable, HEX);
 
-  delay(125);
+  delay(4000);
 }
 
-
-void pciSetup(byte pin)
+void sendPumpkin (unsigned long data, int nbits)
 {
-    *digitalPinToPCMSK(pin) |= bit (digitalPinToPCMSKbit(pin));  // enable pin
-    PCIFR  |= bit (digitalPinToPCICRbit(pin)); // clear any outstanding interrupt
-    PCICR  |= bit (digitalPinToPCICRbit(pin)); // enable interrupt for the group
+  sender.enableIROut(38);
+
+  sender.mark(2400);
+  sender.space(600);
+
+  for (unsigned long  mask = 0x00000001UL << (nbits - 1);  mask;  mask >>= 1)
+  {
+    if (data & mask)
+    {
+      sender.mark(1200);
+      sender.space(600);
+    }
+    else
+    {
+      sender.mark(600);
+      sender.space(600);
+    }
+  }
 }
 
-ISR (PCINT1_vect) // handle pin change interrupt for A0 to A5 here
-{
-  pressed = !digitalRead(BUTTON);  
-
-//  digitalWrite(IR_LED, pressed);
-//  digitalWrite(13, pressed);
-}  
