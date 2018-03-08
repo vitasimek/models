@@ -1,5 +1,4 @@
 #include <IRremote.h>
-#include <OneWire.h>
 
 
 #define IR_LED 3
@@ -16,8 +15,8 @@ typedef struct
 typedef union
 {
   data_t data;
-  unsigned long serializable;
-} serializable_data_t;
+  unsigned long raw_data;
+} data_serializer_t;
 
 
 IRsend sender;
@@ -36,13 +35,13 @@ void loop()
   data.value++;
   data.checksum = data.serial_no + data.value;
 
-  serializable_data_t serialized;
-  serialized.data = data;
+  data_serializer_t serializer;
+  serializer.data = data;
 
-  sendPumpkin(serialized.serializable, 32);
-  Serial.println(serialized.serializable, HEX);
+  sendPumpkin(serializer.raw_data, 32);
+  Serial.println(serializer.raw_data, HEX);
 
-  delay(4000);
+  delay(125);
 }
 
 void sendPumpkin (unsigned long data, int nbits)
