@@ -12,8 +12,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C5F80730-F44F-4478-BDAE-6634EFC2CA88}</ProjectGuid>
-    <RootNamespace>rc_plane</RootNamespace>
-    <ProjectName>rc_plane</ProjectName>
+    <RootNamespace>sender</RootNamespace>
+    <ProjectName>sender</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -34,9 +34,6 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared">
-    <Import Project="..\telemetry\telemetry.vcxitems" Label="Shared" />
-  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -50,10 +47,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\rc_plane;$(ProjectDir)..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\libraries\Servo\src;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.20\libraries\SPI\src;$(ProjectDir)..\..\..\..\..\..\Documents\Arduino\libraries\RF24;$(ProjectDir)..\..\..\..\..\..\Documents\Arduino\libraries\NeoGPS\src;$(ProjectDir)..\..\..\..\..\..\Documents\Arduino\libraries\RF24\utility;$(ProjectDir)..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\libraries;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.20\libraries;$(ProjectDir)..\..\..\..\..\..\Documents\Arduino\libraries;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.20\cores\arduino;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\arduino\hardware\avr\1.6.20\variants\eightanaloginputs;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\4.9.2-atmel3.5.4-arduino2\avr\include\;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\4.9.2-atmel3.5.4-arduino2\avr\include\avr\;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\4.9.2-atmel3.5.4-arduino2\lib\gcc\avr\4.8.1\include;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\4.9.2-atmel3.5.4-arduino2\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\4.9.2-atmel3.5.4-arduino2\lib\gcc\avr\4.9.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>$(ProjectDir)__vm\.rc_plane.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\sender;$(ProjectDir)..\..\..\..\..\..\Documents\Arduino\libraries\IRremote;$(ProjectDir)..\..\..\..\..\..\..\..\Program Files (x86)\Arduino\libraries;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\ATTinyCore\hardware\avr\1.1.4\libraries;$(ProjectDir)..\..\..\..\..\..\Documents\Arduino\libraries;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\ATTinyCore\hardware\avr\1.1.4\cores\tiny;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\ATTinyCore\hardware\avr\1.1.4\variants\tinyX5;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\4.9.2-atmel3.5.4-arduino2\avr\include\;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\4.9.2-atmel3.5.4-arduino2\avr\include\avr\;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\4.9.2-atmel3.5.4-arduino2\lib\gcc\avr\4.8.1\include;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\4.9.2-atmel3.5.4-arduino2\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\..\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\4.9.2-atmel3.5.4-arduino2\lib\gcc\avr\4.9.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ProjectDir)__vm\.sender.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
-      <PreprocessorDefinitions>__AVR_ATmega328p__;__AVR_ATmega328P__;F_CPU=16000000L;ARDUINO=10607;ARDUINO_AVR_NANO;ARDUINO_ARCH_AVR;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__AVR_ATtiny85__;__AVR_ATTINY85__;F_CPU=8000000L;ARDUINO=10607;ARDUINO_AVR_ATTINYX5;ARDUINO_ARCH_AVR;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -80,19 +77,19 @@
     <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="rc_plane.ino">
+    <None Include="sender.ino">
       <FileType>CppCode</FileType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="__vm\.rc_plane.vsarduino.h" />
+    <ClInclude Include="__vm\.sender.vsarduino.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties arduino.upload.port="COM5 " />
+      <UserProperties vm.upload.useprogrammer="1" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

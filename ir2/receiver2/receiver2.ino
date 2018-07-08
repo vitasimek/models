@@ -1,6 +1,5 @@
 #include <boarddefs.h>
 #include <IRremote.h>
-#include <OneWire.h>
 
 
 #define CONTROL 2
