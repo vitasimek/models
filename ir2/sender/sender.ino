@@ -41,7 +41,7 @@ void loop()
   sendPumpkin(serializer.raw_data, 32);
   Serial.println(serializer.raw_data, HEX);
 
-  delay(125);
+  delay(1000);
 }
 
 void sendPumpkin (unsigned long data, int nbits)
