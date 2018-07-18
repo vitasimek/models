@@ -33,9 +33,7 @@ module inner_ring(do,h)
     difference()
     {
         cylinder(d=dj,h=h);    
-        translate([0,0,h-4])
-        cylinder(d1=dj-4*w,d2=di-4*w,h=4);    
-        cylinder(d=dj-4*w,h=h-4);    
+        #cylinder(d1=dj-4*w,d2=di-4*w,h=h);            
     }
     
     translate([0,0,0.35*6])
