@@ -4,6 +4,12 @@
 #include <boarddefs.h>
 #include <IRremoteInt.h>
 #include <avr/delay.h>
+#include <avr/sleep.h>
+#include <avr/power.h>
+#include <avr/wdt.h>
+
+#define adc_disable() (ADCSRA &= ~(1<<ADEN))
+#define adc_enable() (ADCSRA |=  (1<<ADEN))
 
 #define IR_LED 1
 
@@ -25,15 +31,43 @@ IRsend sender;
 
 void setup()
 {
-	OSCCAL = 147;
+	//OSCCAL = 147;
 
-	sender.enableIROut(38);
+	//adc_disable();
+	//set_sleep_mode(SLEEP_MODE_PWR_DOWN);
 }
 
-data_t data = { 0xAB, 0x0000 };
+volatile byte count = 0;
+
+ISR(WDT_vect)
+{
+	count++;
+	wdt_disable();
+}
+
+
+data_t data = { 0x14, 0x0000 };
 
 void loop()
 {
+	// clear various "reset" flags
+	MCUSR = 0;
+	// allow changes, disable reset
+	WDTCR = bit(WDCE) | bit(WDE);
+	// set interrupt mode and an interval 
+	WDTCR = bit(WDIE) | bit(WDP3) | bit(WDP0);    // set WDIE, and 8 seconds delay
+	wdt_reset();  // pat the dog
+
+	set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+	noInterrupts();
+	sleep_enable();
+	interrupts();
+	power_all_disable();
+	sleep_cpu();
+	power_all_enable();
+
+
+
 	data.value++;
 	data.checksum = data.serial_no + data.value;
 
@@ -42,7 +76,15 @@ void loop()
 
 	sendPumpkin(serializer.raw_data, 32);
 
-	_delay_ms(250);
+	//_delay_ms(125);
+
+	//adc_disable();
+	//power_adc_disable();
+	
+	//sleep_enable();
+	//sleep_cpu();
+	
+	//adc_enable();
 }
 
 void sendPumpkin(unsigned long data, int nbits)
