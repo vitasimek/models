@@ -1,3 +1,5 @@
+use<ring.scad>
+
 fn=8;
 //hg=0.2+0.3*3;
 hg=0.2+0.3*5;
@@ -6,9 +8,6 @@ w=0.4*2;
 width=200;
 
 
-t=40-hg-4;
-
-use<ring.scad>
 
 
 //translate([0,0,t*7])
