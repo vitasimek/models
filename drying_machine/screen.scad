@@ -56,10 +56,10 @@ module body()
         {
             width=width-2*w;
             width_i=width_i-2*w;
-            translate([0,0,hg+h/4])
-            x_cube(width,width,h/4*3,fn);
+            translate([0,0,hg+hg+4+w+2])
+            x_cube(width,width,h-(hg+4+w+2),fn);
             translate([0,0,hg])
-            x_cube(width_i-x,width,h/4,fn);
+            x_cube(width_i-x,width,(hg+4+w+2),fn);
             x_cube(width_i-x, width_i-x,hg,fn);
         }
     }
