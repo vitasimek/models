@@ -4,7 +4,7 @@ hg=0.2+0.3*5;
 h=40;
 w=0.4*2;
 width=200;
-x=7;
+
 
 t=40-hg-4;
 
@@ -37,32 +37,7 @@ body();
 
 module body()
 {
-    difference()
-    {
-        width_i=width-2*w-w;
-        union()
-        {
-            translate([0,0,hg+4+w+2])
-            x_cube(width,width,h-hg-4-2-w,fn);
-            translate([0,0,hg+4+w])
-            x_cube(width_i+w,width,2,fn);
-            translate([0,0,hg+4])
-            x_cube(width_i, width_i+w,w,fn);
-            translate([0,0,hg])
-            x_cube(width_i, width_i,4,fn);
-            x_cube(width_i-2*w, width_i,hg,fn);
-        }
-        translate([0,-50*0,0])
-        {
-            width=width-2*w;
-            width_i=width_i-2*w;
-            translate([0,0,hg+hg+4+w+2])
-            x_cube(width,width,h-(hg+4+w+2),fn);
-            translate([0,0,hg])
-            x_cube(width_i-x,width,(hg+4+w+2),fn);
-            x_cube(width_i-x, width_i-x,hg,fn);
-        }
-    }
+    stackable_body(width, h, hg, w, fn);
 
     translate([-width/2-w,-width/2-w,0])
     bottom_grid(width);
