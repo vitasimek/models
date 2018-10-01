@@ -43,7 +43,7 @@ module body()
         union()
         {
             translate([0,0,hg+4+w+2])
-            x_cube(width,width,h-hg-4-2,fn);
+            x_cube(width,width,h-hg-4-2-w,fn);
             translate([0,0,hg+4+w])
             x_cube(width_i+w,width,2,fn);
             translate([0,0,hg+4])
