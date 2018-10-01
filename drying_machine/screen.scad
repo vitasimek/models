@@ -7,43 +7,16 @@ h=40;
 w=0.4*2;
 width=200;
 
-
-
-
-//translate([0,0,t*7])
-//color("white")
-//body();
-//translate([0,0,t*6])
-//color("hotpink")
-//body();
-//translate([0,0,t*5])
-//color("white")
-//body();
-//translate([0,0,t*4])
-//color("SpringGreen")
-//body();
-//translate([0,0,t*3])
-//color("white")
-//body();
-//translate([0,0,t*2])
-//color("white")
-//body();
-//translate([0,0,t*1])
-//color("white")
-//body();
-//color("white")
-body();
-
-module body()
+module body(h,c)
 {
     stackable_body(width, h, hg, w, fn);
 
     translate([-width/2-w,-width/2-w,0])
-    bottom_grid(width);
+    bottom_grid(width, c);
 }
 
 
-module bottom_grid(width)
+module bottom_grid(width, c)
 {
 //    difference()
 //    {
@@ -57,7 +30,7 @@ module bottom_grid(width)
         union()
         {
             translate([w,w,0])
-            bottom_grid_vertical(width=width,c=35*2);
+            bottom_grid_vertical(width,c);
             translate([w,w,0])
             bottom_grid_horizontal(width=width,c=5,w=w);
         }
