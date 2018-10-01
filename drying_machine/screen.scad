@@ -8,6 +8,7 @@ x=7;
 
 t=40-hg-4;
 
+use<ring.scad>
 
 
 //translate([0,0,t*7])
@@ -42,24 +43,24 @@ module body()
         union()
         {
             translate([0,0,hg+4+w+2])
-            x_cube(width,width,h-hg-4-2);
+            x_cube(width,width,h-hg-4-2,fn);
             translate([0,0,hg+4+w])
-            x_cube(width_i+w,width,2);
+            x_cube(width_i+w,width,2,fn);
             translate([0,0,hg+4])
-            x_cube(width_i, width_i+w,w);
+            x_cube(width_i, width_i+w,w,fn);
             translate([0,0,hg])
-            x_cube(width_i, width_i,4);
-            x_cube(width_i-2*w, width_i,hg);
+            x_cube(width_i, width_i,4,fn);
+            x_cube(width_i-2*w, width_i,hg,fn);
         }
         translate([0,-50*0,0])
         {
             width=width-2*w;
             width_i=width_i-2*w;
             translate([0,0,hg+h/4])
-            x_cube(width,width,h/4*3);
+            x_cube(width,width,h/4*3,fn);
             translate([0,0,hg])
-            x_cube(width_i-x,width,h/4);
-            x_cube(width_i-x, width_i-x,hg);
+            x_cube(width_i-x,width,h/4,fn);
+            x_cube(width_i-x, width_i-x,hg,fn);
         }
     }
 
@@ -92,7 +93,7 @@ module bottom_grid(width)
             
             width_i=width-2*w-w-2*w;
             translate([width/2+w,width/2+w,0])
-            x_cube(width_i, width_i,hg+4);
+            x_cube(width_i, width_i,hg+4,fn);
         }
     }    
 }
@@ -124,32 +125,3 @@ module bottom_grid_vertical(width=100,c=35,w=0.4*2)
         cube([w,width,hg]);
     }
 }
-
-module x_cube(width1, width2,h)
-{
-    width2 = (width2 == 0) ? width1 : width2;
-
-    rotate([0,0,45/2])
-    cylinder(d1=width1,d2=width2,h=h,$fn=fn);
-}
-
-function side_to_diameter(a) = (
-    let(v=a*sin(45))
-    let(d=v*2)
-    d);
-
-//module side_vertical_span(h, d=10)
-//{
-//    scale([1,1/2,1])
-//    difference()
-//    {
-//        cylinder(d1=d,d2=d/5,h=h,$fn=6);
-//        translate([-d/2,-d/2,0])
-//        cube([d,d/2,h]);
-//    }
-//}
-
-// screew holes:
-// distance = 105;
-// diagonal distance = 150;
-// diameter = 5;

@@ -1,3 +1,5 @@
+use<ring.scad>
+
 fn=8;
 //hg=0.2+0.3*3;
 hg=0.2+0.3*5;
@@ -7,6 +9,7 @@ width=200;
 x=7;
 
 t=40-hg-4;
+
 
 
 
@@ -42,18 +45,18 @@ module body()
         union()
         {
             translate([0,0,hg])
-            x_cube(width, width,h);
-            x_cube(width, width,hg);
+            x_cube(width, width,h,fn);
+            x_cube(width, width,hg,fn);
         }
         translate([0,-50*0,0])
         {
             width=width-2*w;
             width_i=width_i-2*w;
             translate([0,0,hg+h-10])
-            x_cube(width,width,10);
+            x_cube(width,width,10,fn);
             translate([0,0,hg])
-            x_cube(width_i-x,width,h-10);
-            x_cube(width_i-2*x, width_i-x,hg);
+            x_cube(width_i-x,width,h-10,fn);
+            x_cube(width_i-2*x, width_i-x,hg,fn);
         }
 		for(i = [0:7])
 		rotate([0,0,45*i+45/2])
@@ -108,7 +111,7 @@ module bottom_grid(width)
             
             width_i=width-2*w-w-2*w;
             translate([width/2+w,width/2+w,0])
-            x_cube(width_i, width_i,hg+4);
+            x_cube(width_i, width_i,hg+4,fn);
         }
     }    
 }
@@ -141,31 +144,31 @@ module bottom_grid_vertical(width=100,c=35,w=0.4*2)
     }
 }
 
-module x_cube(width1, width2,h)
-{
-    width2 = (width2 == 0) ? width1 : width2;
-
-    rotate([0,0,45/2])
-    cylinder(d1=width1,d2=width2,h=h,$fn=fn);
-}
-
-function side_to_diameter(a) = (
-    let(v=a*sin(45))
-    let(d=v*2)
-    d);
-
-//module side_vertical_span(h, d=10)
+//module x_cube(width1, width2,h)
 //{
-//    scale([1,1/2,1])
-//    difference()
-//    {
-//        cylinder(d1=d,d2=d/5,h=h,$fn=6);
-//        translate([-d/2,-d/2,0])
-//        cube([d,d/2,h]);
-//    }
+//    width2 = (width2 == 0) ? width1 : width2;
+//
+//    rotate([0,0,45/2])
+//    cylinder(d1=width1,d2=width2,h=h,$fn=fn);
 //}
-
-// screew holes:
-// distance = 105;
-// diagonal distance = 150;
-// diameter = 5;
+//
+//function side_to_diameter(a) = (
+//    let(v=a*sin(45))
+//    let(d=v*2)
+//    d);
+//
+////module side_vertical_span(h, d=10)
+////{
+////    scale([1,1/2,1])
+////    difference()
+////    {
+////        cylinder(d1=d,d2=d/5,h=h,$fn=6);
+////        translate([-d/2,-d/2,0])
+////        cube([d,d/2,h]);
+////    }
+////}
+//
+//// screew holes:
+//// distance = 105;
+//// diagonal distance = 150;
+//// diameter = 5;
