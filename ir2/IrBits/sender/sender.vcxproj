@@ -89,7 +89,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties vm.upload.useprogrammer="1" />
+      <UserProperties vm.upload.useprogrammer="1" arduino.upload.port="COM1" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

@@ -55,7 +55,7 @@ void loop()
 	// allow changes, disable reset
 	WDTCR = bit(WDCE) | bit(WDE);
 	// set interrupt mode and an interval 
-	WDTCR = bit(WDIE) | bit(WDP3) | bit(WDP0);    // set WDIE, and 8 seconds delay
+	WDTCR = bit(WDIE) | bit(WDP2) | bit(WDP1);    // set WDIE, and 8 seconds delay
 	wdt_reset();  // pat the dog
 
 	set_sleep_mode(SLEEP_MODE_PWR_DOWN);
